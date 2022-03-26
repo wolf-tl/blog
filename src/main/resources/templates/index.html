@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+<!--设置移动端预览设置-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首页</title>
+<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">-->
+<!--    <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">-->
+</head>
+<!--音乐插件-->
+<link rel="stylesheet" href="../static/lib/aplayer/APlayer.min.css" th:href="@{/lib/aplayer/APlayer.min.css}">
+
+<body>
+
+<!--导航-->
+<nav th:replace="_fragments :: me(1)" >
+</nav>
+<div class="ui teal m-bg segment animate__animated animate__flip ">
+    <p>友情提示：由于没有全局化音乐插件，因此刷新首页时会中断音乐；除了点击首页，其他点击都会生成新页面，不会中断音乐；音乐器目前没有加入歌词</p>
+    <p>往期技术博客（javase基础 javaee基础 c++基础）在我的csdn，一些小项目在github，可在关于我页面处前往</p>
+</div>
+<!--aplayer音乐插件-->
+<div id="aplayer"></div>
+<!--中间部分-->
+<div class=" m-padded-tb-large animate__animated animate__zoomInDown">
+    <div class="ui container ">
+        <div class="ui stackable grid ">
+            <!--左边博客列表-->
+            <div class="eleven wide column">
+                <!--header-->
+                <div class="ui top attached teal segment m-bg">
+                    <div class="ui middle aligned two column grid">
+                        <div class="column">
+                            <div class="ui teal header">博客</div>
+                        </div>
+                        <div class="right aligned column">
+                            共 <h2 class="ui orange header m-inline-block" th:text="${pageInfo.total}"> 14 </h2> 篇
+                        </div>
+                    </div>
+                </div>
+                <!--content-->
+                <div class="ui attached segment m-bg">
+                    <div class="ui m-padded-lr-tiny m-padded-t vertical segment" th:each="blog : ${pageInfo.list}">
+                        <div class="ui mobile reversed stackable grid">
+                            <div class="ui eleven wide column ">
+                                <h3  class="ui header"><a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="m-black" th:text="${blog.title}">弱肉强食和天空一样古老又真实</a></h3>
+                                <p class="m-text m-padded-tb-small" th:text="|${blog.description}|">付出不亚于任何人的努力，副标题是“一步一步、扎扎实实、坚持不懈的做好具体工作。”另外还有一点很重要，
+                                    不亚于任何人的努力，必须每天不断持续，千万不要忘记任何伟大的事业都是一步一步、踏踏实实努力积累的结果。</p>
+                                <div class="ui stackable grid">
+                                    <div class="row m-padded-lr-tiny">
+                                        <div class="eleven wide colume">
+                                            <div class="ui mini horizontal link list">
+                                                <div class="item">
+                                                    <img src="../static/images/tl.jpg" th:src="@{${blog.user.avatar}}" alt="" class="ui avatar image" width="30px" height="30px">
+                                                    <div class="content"><a href="#" th:href="@{/about}" target="_blank" class="header" th:text="${blog.user.nickname}">tl</a></div>
+                                                </div>
+                                                <div class="item">
+                                                    <i class="calendar icon"></i><span th:text="${#dates.format(blog.createTime, 'yyyy-MM-dd')}">2022-03-01</span>
+                                                </div>
+                                                <div class="item">
+                                                    <i class="eye icon"></i>  <span th:text="${blog.views}">2022</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--分类-->
+                                        <div class="right aligned five wide column">
+                                            <a href="#" th:href="@{/types/{id}(id=${blog.type.id})}" target="_blank" class="ui teal basic label m-padded-tiny m-text-thin" th:text="${blog.type.name}">提高认知</a>
+                                        </div>
+                                    </div>
+                                    <!--标签-->
+                                    <div class="row">
+                                        <!--标签-->
+                                        <div class="column m-padded-tb" >
+                                            <a href="#" th:href="@{/tags/{id}(id=${tag.id})}" target="_blank" th:each="tag : ${blog.tags}" class="ui basic teal left pointing label m-padded-tb-mini m-text-thin" >
+                                                <span th:text="${tag.name}">狼道</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <div class="ui five wide column">
+                            <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank">
+                                <img src="../static/images/香克斯.jpg" th:src="@{${blog.firstPicture}}" alt="" class="ui rounded image" style="width: fit-content">
+                            </a>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <!--footer-->
+                <div class="ui bottom attached m-bg segment">
+                    <div class="ui middle aligned two column grid">
+                        <div class="column">
+                            <a class="ui mini teal basic button" th:href="@{/(pagenum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}">上一页</a>
+                        </div>
+                        <div class="right aligned column">
+                            <a class="ui mini teal basic button" th:href="@{/(pagenum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}">下一页</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="ui m-bg segment m-inline-block">
+                    <p >当前第<span th:text="${pageInfo.pageNum}"></span>页，总<span th:text="${pageInfo.pages}"></span>页，共<span th:text="${pageInfo.total}"></span>条记录</p>
+                </div>
+            </div>
+            <!--右边top-->
+            <div class="five wide column">
+                <!--分类-->
+                <div class="ui m-bg segments">
+                    <!--不同的颜色模块-->
+                    <div class="ui teal secondary m-bg segment">
+                        <div class="ui two column grid">
+                            <div class="column">
+                                <i class="idea icon"></i>分类
+                            </div>
+                            <div class="right aligned column">
+                                <a href="#" th:href="@{types/-1}" target="_blank">more <i class="angle double right icon"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui teal m-bg segment">
+                        <div class="ui fluid vertical m-bg menu">
+                            <a href="#" th:href="@{/types/{id}(id=${type.id})}" target="_blank" class="item" th:each="type : ${types}">
+                                <span th:text="${type.name}">学习日志</span>
+                                <div class="ui teal basic left pointing label"  th:text="${#arrays.length(type.blogs)}">13</div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!--标签-->
+                <div class="ui m-bg segments m-margin-top-large">
+                    <!--不同的颜色模块-->
+                    <div class="ui teal secondary m-bg segment">
+                        <div class="ui two column grid">
+                            <div class="column">
+                                <i class="tags icon"></i>标签
+                            </div>
+                            <div class="right aligned column">
+                                <a href="#" th:href="@{tags/-1}" target="_blank">more <i class="angle double right icon"></i> </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui teal m-bg segment">
+                        <a href="#" th:href="@{/tags/{id}(id=${tag.id})}" target="_blank" th:each="tag : ${tags}" class="ui teal basic left pointing label m-margin-tb-tiny">
+                            <span th:text="${tag.name}">狼道</span> <div class="detail" th:text="${#arrays.length(tag.blogs)}">23</div>
+                        </a>
+                    </div>
+                </div>
+                <!--最新推荐-->   <!--ui segment m-bg m-top-color-->
+                <div class="ui segments m-margin-top-large">
+                    <!--不同的颜色模块-->
+                    <div class="ui teal secondary m-bg segment">
+                        <i class="bookmark icon"></i>最新推荐
+                    </div>
+                    <div class="ui m-bg segment" th:each="recommendBlog : ${recommendBlogs}">
+                        <a href="#" th:href="@{/blog/{id}(id=${recommendBlog.id})}" th:text="${recommendBlog.title}" target="_blank" class="m-color m-text-thin">用户故事（User Story）</a>
+                    </div>
+                </div>
+                <!--二维码-->
+                <h4 class="ui horizontal divider header m-text-thin">扫码关注我</h4>
+                <div class="ui centered card" style="width: 8em">
+                    <img src="../static/images/微信.jpg" th:src="@{/images/微信.jpg}" alt="" class="ui rounded image" style="width:120px" width="120px">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<!--底部-->
+<footer th:replace="_fragments :: footer" class="ui inverted vertical segment m-padded-tb-massive">
+</footer>
+
+<th:block th:replace="_fragments :: script">
+
+</th:block>
+<script src="../static/lib/aplayer/APlayer.min.js" th:src="@{/lib/aplayer/APlayer.min.js}"></script>
+
+<!--网站运行时间-->
+<script>
+    // 运行时间统计
+    function secondToDate(second) {
+        if (!second) {
+            return 0;
+        }
+        var time = new Array(0, 0, 0, 0, 0);
+        if (second >= 365 * 24 * 3600) {
+            time[0] = parseInt(second / (365 * 24 * 3600));
+            second %= 365 * 24 * 3600;
+        }
+        if (second >= 24 * 3600) {
+            time[1] = parseInt(second / (24 * 3600));
+            second %= 24 * 3600;
+        }
+        if (second >= 3600) {
+            time[2] = parseInt(second / 3600);
+            second %= 3600;
+        }
+        if (second >= 60) {
+            time[3] = parseInt(second / 60);
+            second %= 60;
+        }
+        if (second > 0) {
+            time[4] = second;
+        }
+        return time;
+    }
+    function setTime() {
+        /*此处为网站的创建时间*/
+        var create_time = Math.round(new Date(Date.UTC(2022, 2, 15, 11, 11, 11)).getTime() / 1000);
+        var timestamp = Math.round((new Date().getTime() + 8 * 60 * 60 * 1000) / 1000);
+        currentTime = secondToDate((timestamp - create_time));
+        currentTimeHtml = currentTime[0] + '年' + currentTime[1] + '天'
+            + currentTime[2] + '时' + currentTime[3] + '分' + currentTime[4]
+            + '秒';
+        document.getElementById("htmer_time").innerHTML = currentTimeHtml;
+    }
+    setInterval(setTime, 1000);
+</script>
+<!--设置手机模式-->
+<script>
+    $('.menu.toggle').click(function () {
+        $('.m-item').toggleClass('m-mobile-hide')
+    });
+</script>
+
+<!--aplayer-->
+<script>
+    const ap = new APlayer({
+        container: document.getElementById('aplayer'),
+        fixed: true,                //是否附着页面底部，否为false
+        autoplay: false,             //是否自动播放，否为false,移动端不能生效
+        volume: 0.6,                //初始音量（0~1）
+        lrcType: 3,                 //歌词模式（1、HTML模式 2、js模式 3、lrc文件模式）
+        mutex: true,                //互斥模式：阻止多个播放器同时播放，当前播放器播放时暂停其他播放器
+        order: 'random',            //音频循环顺序（'list'：顺序, 'random'：随机）
+        preload: 'none',            //预加载（'none'：不预加载, 'metadata'：元数据, 'auto'：自动）
+        listFolded: false,          //列表默认折叠，开启为true
+        theme: '#ee8243',           //主题颜色
+        audio: [{
+            name: '日不落',           //歌曲名称
+            artist: '藤柒吖 / 默笙',       //歌曲作者
+            url: 'https://music.163.com/song/media/outer/url?id=1478626435',         //歌曲源文件地址
+            cover: 'http://p1.music.126.net/uqkzFodkVRPt9C4_7CDEoA==/109951165311403110.jpg?param=130y130',     //歌曲封面地址
+            lrc:  '',        //歌曲的歌词文件
+            theme: '#eeeeee'        //主题颜色（优先）
+            },
+            {
+                name: '光辉岁月',           //歌曲名称
+                artist: 'beyond',       //歌曲作者
+                url: 'https://music.163.com/song/media/outer/url?id=346576',         //歌曲源文件地址
+                cover: 'http://p2.music.126.net/JOJvZc_7SqQjKf8TktQ_bw==/29686813951246.jpg?param=130y130',     //歌曲封面地址
+                lrc:  '',        //歌曲的歌词文件
+                theme: '#eeeeee'        //主题颜色（优先）
+            },
+            {
+                name: 'Aurora Borealis',           //歌曲名称
+                artist: 'John H. Clarke',       //歌曲作者
+                url: 'https://music.163.com/song/media/outer/url?id=29027341',         //歌曲源文件地址
+                cover: 'http://p2.music.126.net/PpdUJ0X7fd5h7mlCZQm49Q==/109951165092709270.jpg?param=130y130',     //歌曲封面地址
+                lrc:  '',        //歌曲的歌词文件
+                theme: '#eeeeee'        //主题颜色（优先）
+            },
+            {
+            name: '父亲写的散文诗',           //歌曲名称
+            artist: '李健',       //歌曲作者
+            url: 'https://music.163.com/song/media/outer/url?id=464647429',         //歌曲源文件地址
+            cover: 'http://p1.music.126.net/yQFU10YcRsB0LAhZObRDfg==/109951165698154972.jpg?param=130y130',     //歌曲封面地址
+            lrc:  '',        //歌曲的歌词文件
+            theme: '#eeeeee'        //主题颜色（优先）
+            },
+            {
+                name: '假如爱有天意',           //歌曲名称
+                artist: '李健',       //歌曲作者
+                url: 'https://music.163.com/song/media/outer/url?id=31877467',         //歌曲源文件地址
+                cover: 'http://p1.music.126.net/yQFU10YcRsB0LAhZObRDfg==/109951165698154972.jpg?param=130y130',     //歌曲封面地址
+                lrc:  '',        //歌曲的歌词文件
+                theme: '#eeeeee'        //主题颜色（优先）
+            },
+            {
+                name: '喜欢你',           //歌曲名称
+                artist: 'beyond',       //歌曲作者
+                url: 'https://music.163.com/song/media/outer/url?id=346073',         //歌曲源文件地址
+                cover: 'http://p1.music.126.net/zZtUDuWk6qIe3ezMt4UMjg==/109951165796417308.jpg?param=130y130',     //歌曲封面地址
+                lrc:  '',        //歌曲的歌词文件
+                theme: '#eeeeee'        //主题颜色（优先）
+            },
+            {
+                name: '海阔天空',           //歌曲名称
+                artist: 'beyond',       //歌曲作者
+                url: 'https://music.163.com/song/media/outer/url?id=346089',         //歌曲源文件地址
+                cover: 'http://p2.music.126.net/zZtUDuWk6qIe3ezMt4UMjg==/109951165796417308.jpg?param=130y130',     //歌曲封面地址
+                lrc:  '',        //歌曲的歌词文件
+                theme: '#eeeeee'        //主题颜色（优先）
+            }]
+    });
+    ap.lrc.hide()
+</script>
+</body>
+</html>

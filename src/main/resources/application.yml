@@ -1,0 +1,33 @@
+spring:
+  main:
+    allow-circular-references: true
+  datasource:
+    username: root
+    password: tl
+    url: jdbc:mysql://localhost:3306/blog?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis:
+    type-aliases-package: com.tl.blog.pojo   #设置别名
+    mapper-locations: classpath:mybatis/mapper/*.xml   # 指定myBatis的核心配置文件与Mapper映射文件
+
+logging:
+  level:
+    root: info
+    com.tl: debug
+  file:
+    path: log/blog.log
+
+server:
+  port: 443
+  ssl:
+    key-store: classpath:wolf-tl.top.jks
+    key-store-password: 2h09647485
+    key-store-type: JKS
+    session: 3000
+
+comment.avatar: /images/tl.jpg
+message:
+  avatar: /images/tl.jpg
+
+

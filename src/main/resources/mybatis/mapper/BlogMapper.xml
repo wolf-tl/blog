@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tl.blog.mapper.BlogMapper">
+
+    <resultMap id="blog" type="Blog">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="firstPicture" column="firstPicture"/>
+        <result property="flag" column="flag"/>
+        <result property="views" column="views"/>
+        <result property="appreciation" column="appreciation"/>
+        <result property="shareStatement" column="shareStatement"/>
+        <result property="commentabled" column="commentabled"/>
+        <result property="published" column="published"/>
+        <result property="recommend" column="recommend"/>
+        <result property="createTime" column="createTime"/>
+        <result property="updateTime" column="updateTime"/>
+        <result property="description" column="description"/>
+
+        <result property="typeId" column="typeId"/>
+        <result property="userId" column="userId"/>
+        <result property="tagIds" column="tagIds"/>
+        <association property="type" javaType="Type">
+            <id property="id" column="typeid"/>
+            <result property="name" column="typename"/>
+        </association>
+        <association property="user" javaType="User">
+            <id property="id" column="uid"/>
+            <result property="nickname" column="nickname"/>
+            <result property="username" column="username"/>
+            <result property="email" column="email"/>
+            <result property="avatar" column="avatar"/>
+        </association>
+        <collection property="tags" ofType="Tag">
+            <id property="id" column="tagid"/>
+            <result property="name" column="tagname"/>
+        </collection>
+    </resultMap>
+
+    <delete id="deleteBlog">/*删除blog*/
+        delete from t_blog where id = #{id}
+    </delete>
+
+    <resultMap id="blog_index" type="Blog">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="firstPicture" column="firstPicture"/>
+        <result property="flag" column="flag"/>
+        <result property="views" column="views"/>
+        <result property="appreciation" column="appreciation"/>
+        <result property="shareStatement" column="shareStatement"/>
+        <result property="commentabled" column="commentabled"/>
+        <result property="published" column="published"/>
+        <result property="recommend" column="recommend"/>
+        <result property="createTime" column="createTime"/>
+        <result property="updateTime" column="updateTime"/>
+        <result property="description" column="description"/>
+
+        <result property="typeId" column="typeId"/>
+        <result property="userId" column="userId"/>
+        <result property="tagIds" column="tagIds"/>
+        <association property="type" javaType="Type">
+            <id property="id" column="typeid"/>
+            <result property="name" column="typename"/>
+        </association>
+        <association property="user" javaType="User">
+            <id property="id" column="uid"/>
+            <result property="nickname" column="nickname"/>
+            <result property="username" column="username"/>
+            <result property="email" column="email"/>
+            <result property="avatar" column="avatar"/>
+        </association>
+        <collection property="tags" ofType="Tag"
+                    select="selectTags"
+                    column="id"
+        >
+        </collection>
+    </resultMap>
+    <resultMap id="tag_index" type="Tag">
+        <id property="id" column="tagid"/>
+        <result property="name" column="tagname"/>
+    </resultMap>
+    <select id="getIndexBlog" resultMap="blog_index">  /*主页博客展示*/
+        select distinct b.id, b.title, b.firstPicture, b.views, b.updateTime,b.createTime,b.description,
+        t.name typename, t.id typeid,
+        u.nickname, u.avatar
+        from t_blog b, t_type t, t_user u
+        where b.typeId = t.id and u.id = b.userId and b.published
+        order by b.createTime desc
+    </select>
+    <select id="selectTags" resultMap="tag_index">
+        select distinct t1.id tagid, t1.name tagname
+        from t_blog b, t_tag t1, t_blog_tags tb
+        where tb.tagId = t1.id and tb.blogId = #{id}
+    </select>
+
+    <select id="getAllBlog" resultMap="blog">  /*后台博客展示*/
+        select b.id, b.title, b.updateTime, b.createTime, b.recommend, b.typeId, b.published,
+               t.id typeid, t.name typename
+        from t_blog b, t_type t
+        where b.typeId = t.id/*博客类型id=类型id*/
+        order by b.updateTime desc
+    </select>
+
+    <select id="getByTypeId" resultMap="blog_index">
+        select b.id, b.title, b.firstPicture, b.views, b.updateTime, b.createTime,b.description,
+        t.name typename, t.id typeid,
+        u.nickname, u.avatar
+        from t_blog b, t_type t, t_user u
+        where b.typeId = t.id and u.id = b.userId and b.typeId = #{typeId} and b.published order by b.createTime desc
+    </select>
+
+
+    <select id="getByTagId" resultMap="blog_index">
+        select b.id, b.title, b.firstPicture, b.views, b.updateTime, b.createTime, b.description,
+        t.name typename, t.id typeid,
+        t1.name tagname, t1.id tagid,
+        u.nickname, u.avatar
+        from t_blog b, t_type t, t_user u, t_blog_tags tb, t_tag t1
+        where b.typeId = t.id and u.id = b.userId and tb.blogId = b.id and b.published and tb.tagId = t1.id and t1.id = #{tagId}
+        order by b.createTime desc
+    </select>
+
+    <select id="getAllRecommendBlog" resultMap="blog">
+        select id, title, recommend from t_blog where recommend order by createTime desc;
+    </select>
+
+    <select id="getBlog" resultMap="blog"> /*后台展示博客*/
+        select b.id, b.published, b.flag, b.title, b.content, b.typeId,
+         b.tagIds, b.firstPicture, b.recommend,b.description,
+         b.shareStatement, b.appreciation, b.commentabled
+        from t_blog b  where  b.id = #{id};
+    </select>
+
+    <select id="getDetailedBlog" resultMap="blog">  /*博客详情*/
+        select b.id, b.firstPicture, b.flag, b.title, b.content, b.views,
+        b.createTime, b.updateTime, b.commentabled, b.shareStatement, b.appreciation,
+        u.nickname, u.avatar,
+        t1.id tagid, t1.name tagname
+        from t_blog b, t_user u, t_tag t1, t_blog_tags tb
+        where b.userId = u.id and tb.blogId = b.id and tb.tagId = t1.id and b.id = #{id};
+    </select>
+
+    <select id="getSearchBlog" resultMap="blog_index">/*前台搜索*/
+        <bind name="pattern" value="'%' + query + '%'" />
+        select b.id, b.title, b.firstPicture, b.views, b.createTime, b.updateTime,b.description,
+        t.name typename,t.id typeid,
+        u.nickname, u.avatar
+        from t_blog b, t_type t, t_user u
+        where b.typeId = t.id and  u.id = b.userId and b.published and (b.title like #{pattern} or b.description like  #{pattern})
+        order by b.createTime desc
+    </select>
+
+    <select id="searchAllBlog" parameterType="Blog" resultMap="blog">/*管理后台搜索*/
+        <bind name="pattern" value="'%' + title + '%'" />    /*模糊查询*/
+        select b.id, b.title, b.updateTime, b.recommend, b.published, b.typeId, t.id typeid, t.name typename
+        from t_blog b ,t_type t
+        <where>
+            <if test="1 == 1">
+                b.typeId = t.id    /*博客类型id=类型id*/
+            </if>
+            <if test="typeId != null">
+                and b.typeId = #{typeId}       /*根据博客类型查询*/
+            </if>
+            <if test="recommend != null">
+                and b.recommend = #{recommend}   /*根据博客推荐查询*/
+            </if>
+            <if test="title != null">
+                and b.title like #{pattern}   /*根据博客title模糊查询*/
+            </if>
+            <if test="published != null">
+                and b.published = #{published}   /*根据博客发布状态查询*/
+            </if>
+        </where>
+        order by b.updateTime desc
+    </select>
+
+    <update id="updateBlog" parameterType="Blog">
+        update t_blog set published = #{published},flag = #{flag} ,
+        title = #{title}, content = #{content}, typeId = #{typeId}, tagIds = #{tagIds},
+        firstPicture = #{firstPicture} ,description = #{description} , recommend = #{recommend} ,
+        shareStatement = #{shareStatement}, appreciation = #{appreciation},
+        commentabled = #{commentabled} , updateTime = #{updateTime} where id = #{id};
+    </update>
+
+    <!--useGeneratedKeys="true"；使用自增主键获取主键值策略
+        keyProperty；指定对应的主键属性，也就是mybatis获取到主键值以后，将这个值封装给javaBean的哪个属性
+    -->
+    <insert id="saveBlog" parameterType="Blog" useGeneratedKeys="true" keyProperty="id">
+        insert into t_blog (title, content, firstPicture, flag,
+        views, appreciation, shareStatement, commentabled, published,
+        recommend, createTime, updateTime, typeId, tagIds, userId,description)
+        values (#{title}, #{content}, #{firstPicture}, #{flag}, #{views}, #{appreciation},
+        #{shareStatement}, #{commentabled}, #{published}, #{recommend}, #{createTime},
+        #{updateTime}, #{typeId}, #{tagIds}, #{userId},#{description});
+    </insert>
+
+    <insert id="saveBlogAndTag" parameterType="BlogAndTag">
+        insert into t_blog_tags (tagId, blogId) values (#{tagId},#{blogId});
+    </insert>
+
+    <!--    清空文章标签-->
+    <delete id="deleteBlogAndTag" parameterType="Blog">
+        delete from t_blog_tags where blogId=#{blogId}
+    </delete>
+
+    <select id="findGroupYear" resultType="String">
+        select DATE_FORMAT(b.createTime, '%Y') from t_blog b order by b.createTime desc
+    </select>
+
+    <select id="findByYear" resultMap="blog">
+        select b.title, b.createTime, b.id, b.flag
+        from t_blog b
+        where DATE_FORMAT(b.createTime, "%Y") = #{year} and b.published
+    </select>
+
+    <!--查询出文章评论数量并更新-->
+    <update id="getCommentCountById" parameterType="Blog">
+        update blog.t_blog b set b.commentCount = (
+        select count(*) from blog.t_comment c where c.blogId = #{id} and b.id = #{id}
+        ) WHERE b.id = #{id}
+    </update>
+
+    <!--文章访问自增-->
+    <update id="updateViews" parameterType="Blog">
+        update blog.t_blog b set b.views = b.views+1 where b.id = #{id}
+    </update>
+
+
+
+
+
+
+
+</mapper>

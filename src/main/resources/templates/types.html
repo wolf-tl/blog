@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <!--设置移动端预览设置-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>分类</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <link rel="stylesheet" href="../static/css/me.css">
+</head>
+<body>
+<!--导航-->
+<nav th:replace="_fragments :: me(2)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
+    <div class="ui container">
+        <div class="ui inverted secondary stackable menu">
+            <h2 class="ui teal header item">Blog</h2>
+            <a href="#" class="m-item m-mobile-hide item"><i class="middle home icon"></i>首页</a>
+            <a href="#" class="m-item m-mobile-hide item"><i class="middle idea icon"></i>分类</a>
+            <a href="#" class="m-item m-mobile-hide item"><i class="middle tags icon"></i>标签</a>
+            <a href="#" class="m-item m-mobile-hide item"><i class="middle clone icon"></i>归档</a>
+            <a href="#" class="m-item m-mobile-hide item"><i class="middle info icon"></i>关于我</a>
+            <div class="m-item m-mobile-hide right item">
+                <div class="ui icon inverted transparent input">
+                    <input type="text" placeholder="Search...">
+                    <i class="search link icon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="#" class="ui menu toggle black icon button m-top-right m-mobile-show">
+        <i class="sidebar icon"></i>
+    </a>
+</nav>
+<!--中间部分-->
+<div class="m-padded-tb-large m-container-small animate__animated animate__zoomInUp">
+    <div class="ui container">
+        <!--header-->
+        <div class="ui top attached m-bg segment">
+            <div class="ui middle aligned two column grid">
+                <div class="column">
+                    <div class="ui left aligned teal header">分类</div>
+                </div>
+                <div class="right aligned column">
+                    共 <h2 class="ui orange header m-inline-block" th:text="${#arrays.length(types)}"> 14 </h2> 类
+                </div>
+            </div>
+        </div>
+        <!--分类栏-->
+        <div class="ui attached m-bg segment m-padded-tb-large">
+            <div class="ui labeled button m-margin-tb-tiny" th:each="type : ${types}">
+                <a href="#" th:href="@{/types/{id}(id=${type.id})}" th:classappend="${type.id==activeTypeId} ? 'violet'" class="ui basic  button" th:text="${type.name}">思考与感悟</a>
+                <div class="ui basic left pointing label" th:text="${#arrays.length(type.blogs)}">24</div>
+            </div>
+        </div>
+        <!--内容-->
+        <div class="ui top attached teal m-bg segment">
+            <div class="ui m-padded-lr-tiny vertical segment " th:each="blog : ${pageInfo.list}">
+                <div class="ui mobile reversed stackable grid">
+                    <div class="eleven wide column ">
+                        <h3 class="ui header"><a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="m-black" th:text="${blog.title}">弱肉强食和天空一样古老又真实</a></h3>
+                        <p class="m-text m-padded-tb-small" th:text="|${blog.description}|">付出不亚于任何人的努力，副标题是“一步一步、扎扎实实、坚持不懈的做好具体工作。”另外还有一点很重要，
+                            不亚于任何人的努力，必须每天不断持续，千万不要忘记任何伟大的事业都是一步一步、踏踏实实努力积累的结果。</p>
+                        <div class="ui stackable grid">
+                            <div class="row m-padded-lr-tiny">
+                                <div class="eleven wide colume">
+                                    <div class="ui mini horizontal link list">
+                                        <div class="item">
+                                            <img src="../static/images/tl.jpg" th:src="@{${blog.user.avatar}}" alt="" class="ui avatar image" width="30px" height="30px">
+                                            <div class="content"><a href="#" th:href="@{/about}" target="_blank" class="header" th:text="${blog.user.nickname}">tl</a></div>
+                                        </div>
+                                        <div class="item">
+                                            <i class="calendar icon" ></i><span th:text="${#dates.format(blog.createTime, 'yyyy-MM-dd')}">2022-3-02</span>
+                                        </div>
+                                        <div class="item">
+                                            <i class="eye icon"></i>  <span th:text="${blog.views}">2022</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--分类-->
+<!--                                <div class="right aligned five wide column">-->
+<!--                                    <a href="#" target="_blank" class="ui teal basic label m-padded-tiny m-text-thin" th:text="${blog.type.name}"> 提高认知</a>-->
+<!--                                </div>-->
+                            </div>
+                            <!--标签-->
+                            <div class="row">
+                                <div class="column m-padded-tb" >
+                                    <a href="#" th:href="@{/tags/{id}(id=${tag.id})}" target="_blank" th:each="tag : ${blog.tags}" class="ui basic teal left pointing label m-padded-tb-mini m-text-thin" >
+                                        <span th:text="${tag.name}">狼道</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="five wide column">
+                        <a href="#" target="_blank" th:href="@{/blog/{id}(id=${blog.id})}">
+                            <img src="../static/images/香克斯.jpg" th:src="@{${blog.firstPicture}}" alt="" class="ui rounded image" style="width: fit-content">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--footer-->
+        <div class="ui bottom attached m-bg segment">
+            <div class="ui middle aligned two column grid">
+                <div class="column">
+                    <a class="ui mini teal basic button" th:href="@{/types/{id}(id=${activeTypeId}, pagenum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}">上一页</a>
+                </div>
+                <div class="right aligned column">
+                    <a class="ui mini teal basic button" th:href="@{/types/{id}(id=${activeTypeId}, pagenum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}">下一页</a>
+                </div>
+            </div>
+        </div>
+        <div class="ui m-bg segment m-inline-block">
+            <p >当前第<span th:text="${pageInfo.pageNum}"></span>页，总<span th:text="${pageInfo.pages}"></span>页，共<span th:text="${pageInfo.total}"></span>条记录</p>
+        </div>
+    </div>
+</div>
+
+<!--底部-->
+<footer th:replace="_fragments :: footer" class="ui inverted vertical  segment m-padded-tb-massive ">
+    <div class="ui center aligned container">
+        <div class="ui inverted divided stackable grid">
+            <div class="three wide column">
+                <div class="ui inverted link list">
+                    <div class="item">
+                        <img src="../static/images/微信.jpg" class="ui rounded image" alt="" style="width: 110px">
+                    </div>
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted header m-text-thin m-opacity-mini">Blog</h4>
+                <div class="ui inverted link list m-text-thin m-text-spaced m-opacity-mini">
+                    <a href="#" class="item">java从入门到放弃</a>
+                    <a href="#" class="item">javaweb从入门到入土</a>
+                    <a href="#" class="item">springboot从入门到入狱</a>
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted header m-text-thin m-opacity-mini">touch me</h4>
+                <div class="ui inverted link list m-text-thin m-text-spaced m-opacity-mini">
+                    <a href="#" class="item ">Email: 3136695130@qq.com</a>
+                    <a href="#" class="item ">QQ: 3136695130</a>
+                </div>
+            </div>
+            <div class="seven wide column">
+                <h4 class="ui inverted header m-text-thin m-opacity-mini">wolf-tl</h4>
+                <br>
+                <p class="m-text-thin m-text-spaced m-opacity-tiny">
+                    我会把生活的所思所想以及学习的点点滴滴记录在此。
+                </p>
+            </div>
+        </div>
+        <div class="ui inverted section divider"></div>
+        <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright c 2022 - 2023 wolf-tl Designed by wolf-tl</p>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+<!--设置手机模式-->
+<script>
+    $('.menu.toggle').click(function () {
+        $('.m-item').toggleClass('m-mobile-hide')
+    });
+</script>
+<!--网站运行时间-->
+<script>
+    // 运行时间统计
+    function secondToDate(second) {
+        if (!second) {
+            return 0;
+        }
+        var time = new Array(0, 0, 0, 0, 0);
+        if (second >= 365 * 24 * 3600) {
+            time[0] = parseInt(second / (365 * 24 * 3600));
+            second %= 365 * 24 * 3600;
+        }
+        if (second >= 24 * 3600) {
+            time[1] = parseInt(second / (24 * 3600));
+            second %= 24 * 3600;
+        }
+        if (second >= 3600) {
+            time[2] = parseInt(second / 3600);
+            second %= 3600;
+        }
+        if (second >= 60) {
+            time[3] = parseInt(second / 60);
+            second %= 60;
+        }
+        if (second > 0) {
+            time[4] = second;
+        }
+        return time;
+    }
+    function setTime() {
+        /*此处为网站的创建时间*/
+        var create_time = Math.round(new Date(Date.UTC(2022, 2, 15, 11, 11, 11)).getTime() / 1000);
+        var timestamp = Math.round((new Date().getTime() + 8 * 60 * 60 * 1000) / 1000);
+        currentTime = secondToDate((timestamp - create_time));
+        currentTimeHtml = currentTime[0] + '年' + currentTime[1] + '天'
+            + currentTime[2] + '时' + currentTime[3] + '分' + currentTime[4]
+            + '秒';
+        document.getElementById("htmer_time").innerHTML = currentTimeHtml;
+    }
+    setInterval(setTime, 1000);
+</script>
+</body>
+</html>

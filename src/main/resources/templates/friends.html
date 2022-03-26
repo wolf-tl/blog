@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="_fragments :: head(~{::title})">
+    <title>忆诗忆友</title>
+</head>
+<body>
+
+<!--导航-->
+<nav th:replace="_fragments :: me(6)" >
+</nav>
+
+
+<!--顶部描述-->
+<div class="ui container animate__animated animate__slideInDown" style="position: relative ;">
+    <div class="m-font-size-title m-margin-top" align="center" style="font-family:'STXingkai'">忆诗忆友</div>
+    <div class="m-font-size-text-init-title  m-margin-top-mid"  align="center">那年那天，翻过的那一页</div>
+
+</div>
+<br>
+<br>
+<!--中间内容-->
+<div  class="animate__animated animate__rubberBand">
+    <div class="ui  container">
+        <div class="">
+        <div class="ui m-bg teal segment m-padded-tb-large">
+            <div class="ui container">
+                <div class="" style="font-size: 35px;font-weight: bold; color: #1d3e81" align="center">须知</div>
+                    <ui class="list">
+                        <div class="m-margin-left-mini m-margin-tb-tiny" style="font-size: large;font-weight: bold">网站要求</div>
+                        <br>
+                        <li class="m-margin-left-big m-margin-tb-tiny" style="font-size: medium">无色情内容，无政治敏感内容，网站要能长期正常访问</li>
+                        <li class="m-margin-left-big m-margin-tb-tiny" style="font-size: medium">两个月内有新文章更新</li>
+                        <li class="m-margin-left-big m-margin-tb-tiny" style="font-size: medium">原创博客、技术博客、随笔博客优先</li>
+                        <li class="m-margin-left-big m-margin-tb-tiny" style="font-size: medium">需要交换友链，先把本站添加到你的网站中，然后根据下面的格式，给我发email或在留言板给我留言~</li>
+                        <br>
+                        <div class="m-margin-left-mini m-margin-tb-tiny" style="font-size: large;font-weight: bold">申请格式</div>
+                        <br>
+                        <li class="m-margin-left-big m-margin-tb-tiny" style="font-size: medium">博客标题：诗忆园</li>
+                        <li class="m-margin-left-big m-margin-tb-tiny" style="font-size: medium">博客地址：https://www.wolf-tl.top/</li>
+                        <li class="m-margin-left-big m-margin-tb-tiny" style="font-size: medium">图片地址：https://cdn.jsdelivr.net/gh/wolf-tl/blog-photos@master/tl.jpg</li>
+                    </ui>
+            </div>
+        </div>
+        </div>
+
+        <!--友人帐区域-->
+
+        <div class="ui bottom  teal m-bg segment ">
+            <div class="ui m-padded-tb-large ">
+                <div class="ui stackable  grid">
+                    <!--友人帐显示区域-->
+                    <div class="m-margin-tb-tiny four wide column" th:each="friendlink : ${friendlinks}">
+                        <a href="#" class="class_outer" th:href="@{${friendlink.blogaddress}}" target="_blank">
+                            <div align="center">
+                                <div class="friends-link">
+                                    <img src="../static/images/me.jpg" th:src="@{${friendlink.pictureaddress}}"  alt="" class="friends-link-image">
+                                    <div class="m-margin-top">
+                                         <h4 class="m-font-size-text-friends m-margin-tb-tiny" th:text="${friendlink.blogname}">tl</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<!--底部栏-->
+<footer th:replace="_fragments :: footer" class="ui inverted vertical segment m-padded-tb-massive m-opacity">
+
+</footer>
+
+<th:block th:replace="_fragments :: script">
+
+</th:block>
+
+<script>
+
+
+    // 运行时间统计
+    function secondToDate(second) {
+        if (!second) {
+            return 0;
+        }
+        var time = new Array(0, 0, 0, 0, 0);
+        if (second >= 365 * 24 * 3600) {
+            time[0] = parseInt(second / (365 * 24 * 3600));
+            second %= 365 * 24 * 3600;
+        }
+        if (second >= 24 * 3600) {
+            time[1] = parseInt(second / (24 * 3600));
+            second %= 24 * 3600;
+        }
+        if (second >= 3600) {
+            time[2] = parseInt(second / 3600);
+            second %= 3600;
+        }
+        if (second >= 60) {
+            time[3] = parseInt(second / 60);
+            second %= 60;
+        }
+        if (second > 0) {
+            time[4] = second;
+        }
+        return time;
+    }
+    function setTime() {
+        /*此处为网站的创建时间*/
+        var create_time = Math.round(new Date(Date.UTC(2022, 2, 15, 11, 11, 11)).getTime() / 1000);
+        var timestamp = Math.round((new Date().getTime() + 8 * 60 * 60 * 1000) / 1000);
+        currentTime = secondToDate((timestamp - create_time));
+        currentTimeHtml = currentTime[0] + '年' + currentTime[1] + '天'
+            + currentTime[2] + '时' + currentTime[3] + '分' + currentTime[4]
+            + '秒';
+        document.getElementById("htmer_time").innerHTML = currentTimeHtml;
+    }
+    setInterval(setTime, 1000);
+
+
+    $('.menu.toggle').click(function () {
+        $('.m-item').toggleClass('m-mobile-hide');
+    });
+
+</script>
+</body>
+</html>

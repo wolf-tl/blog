@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:fragment="head(title)">
+    <meta charset="UTF-8">
+    <!--设置移动端预览设置-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:replace="${title}">模板</title>
+    <!--semanic ui前端模板-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <!--文章排版-->
+    <link rel="stylesheet" href="../static/css/typo.css" th:href="@{/css/typo.css}">
+    <!--动态效果-->
+    <link rel="stylesheet" href="../static/css/animate.css" th:href="@{/css/animate.css}">
+    <!--代码高亮-->
+    <link rel="stylesheet" href="../static/lib/prism/prism.css" th:href="@{/lib/prism/prism.css}">
+    <!--自动生成目录-->
+    <link rel="stylesheet" href="../static/lib/tocbot/tocbot.css" th:href="@{/lib/tocbot/tocbot.css}">
+    <!--自定义semanic ui 元素尺寸-->
+    <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
+
+    <link rel="shortcut icon" href="../static/images/leaves_favicon.ico" th:href="@{/images/leaves_favicon.ico}">
+
+</head>
+<body>
+<!--导航-->  <!--class="ui m-bg attached segment m-padding-tb-mini m-shadow-small animated fadeInDown" style="z-index: 999!important;" -->
+<nav th:fragment="me(n)" class="ui attached m-bg segment m-padded-tb-small m-shadow-small" style="z-index: 999!important;">
+    <div class="ui container">
+        <div class="ui  secondary stackable menu">
+            <h2 class="ui teal header item " style="font-family:'STXingkai'">诗忆园</h2>
+            <a href="#" th:href="@{/}" class="m-item m-mobile-hide item"  th:classappend="${n==1} ? 'active'"><i class="middle home icon"></i>首页</a>
+            <a href="#" th:href="@{/types/-1}" class="m-item m-mobile-hide item" target="_blank" th:classappend="${n==2} ? 'active'"><i class="middle idea icon"></i>分类</a>
+            <a href="#" th:href="@{/tags/-1}" class="m-item m-mobile-hide item" target="_blank" th:classappend="${n==3} ? 'active'"><i class="middle tags icon"></i>标签</a>
+            <a href="#" th:href="@{/archives}" class="m-item m-mobile-hide item" target="_blank" th:classappend="${n==4} ? 'active'"><i class="middle clone icon"></i>归档</a>
+            <a href="#" th:href="@{/message}" class="m-item item m-mobile-hide" target="_blank" th:classappend="${n==5} ? 'active'"><i class="book icon"></i>留下你的诗篇</a>
+            <a href="#" th:href="@{/friends}" class="m-item item m-mobile-hide" target="_blank" th:classappend="${n==6} ? 'active'"><i class="pencil alternate icon"></i>忆诗忆友</a>
+            <a href="#" th:href="@{/about}" class="m-item m-mobile-hide item" target="_blank" th:classappend="${n==7} ? 'active'"><i class="middle info icon"></i>关于我</a>
+            <div class="m-item m-mobile-hide right item">
+                <form name="search" action="#"  th:action="@{/search}" target="_blank">
+                    <div class="ui icon  transparent input">
+                        <input type="text" name="query" placeholder="Search..." th:value="${query}">
+                        <i onclick="document.forms['search'].submit()" class="search link icon"></i>
+                    </div>
+                </form>
+            </div>
+            <div class="right m-item m-mobile-hide item">
+                <div class="myShowStyle">
+                    <a href="https://www.wolf-tl.top/admin" target="_blank" style="width:80px; text-align:center"><i class=" paper plane outline icon"></i><font style="vertical-align: inherit;"><font class="m-pink" style="vertical-align: inherit;">登录后台</font></font></a>
+                </div>
+        </div>
+        </div>
+    </div>
+    <a href="#" class="ui menu toggle black icon button m-top-right m-mobile-show">
+        <i class="sidebar icon"></i>
+    </a>
+</nav>
+
+<!--底部-->   <!--<footer th:fragment="footer" class="ui inverted vertical segment m-padded-tb-massive">-->
+<footer th:fragment="footer" class="ui inverted vertical segment m-padded-tb-massive ">
+    <div  class="ui center aligned container">
+        <div class="ui inverted divided stackable grid">
+            <div class="three wide column">
+                <div class="ui inverted link list">
+                    <div class="item">
+                        <img src="../static/images/微信.jpg" th:src="@{/images/微信.jpg}" class="ui rounded image" alt="" style="width: 110px">
+                    </div>
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted header m-text-thin m-opacity-mini">Blog</h4>
+                <div class="ui  link list m-text-thin m-text-spaced m-opacity-mini">
+                    <p  class="m-pm">java从入门到放弃</p>
+                    <p class="m-pm">javaweb从入门到跑路</p>
+                    <p class="m-pm">springboot从入门到入土</p>
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted header m-text-thin m-opacity-mini">touch me</h4>
+                <div class="ui  link list m-text-thin m-text-spaced m-opacity-tiny">
+                    <p  class="m-pm">Email: 3136695130@qq.com</p>
+                    <p class="m-pm">QQ: 3136695130</p>
+                </div>
+            </div>
+            <div class="seven wide column">
+                <h4 class="ui inverted header m-text-thin m-opacity-mini">wolf-tl</h4>
+                <br>
+                <p class="m-text-thin m-text-spaced m-opacity-tiny">
+                    我会把生活的所思所想以及学习的点点滴滴记录在此。
+                </p>
+            </div>
+        </div>
+
+        <div class="ui inverted section divider"></div>
+        <br>
+        <div style="color: #F08047;margin-top: -18px" class="ui inverted m-text-thin m-text-spaced">我的园子已营业：<span id="htmer_time" class="item m-text-thin"></span> (*๓´╰╯`๓)</div>
+        <br>
+        <p class="m-text-thin m-text-spaced " style="color: #F08047;">Copyright © 2022 - 2023 wolf-tl Designed by tl</p>
+        <a rel="nofollow" href="https://beian.miit.gov.cn" target="_blank">
+            <span >皖ICP备2022003062号-1</span>
+            <div style="width:300px;margin:0 auto; padding:20px 0;">
+                <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=21010602000718" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="../static/images/备案图标.png" th:src="@{/images/备案图标.png}" style="float:left;"/><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">辽公网安备 21010602000718号</p></a>
+            </div>
+        </a>
+
+    </div>
+</footer>
+
+
+<th:block th:fragment="script">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    <script src="../static/lib/prism/prism.js" th:src="@{/lib/prism/prism.js}"></script>
+    <script src="../static/lib/tocbot/tocbot.min.js" th:src="@{/lib/tocbot/tocbot.min.js}"></script>
+    <script src="../static/lib/qrcode/qrcode.min.js" th:src="@{/lib/qrcode/qrcode.min.js}"></script>
+    <script src="../static/lib/scroll/jquery.scrollTo.min.js" th:src="@{/lib/scroll/jquery.scrollTo.min.js}"></script>
+</th:block>
+
+</body>
+</html>
