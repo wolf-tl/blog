@@ -69,9 +69,9 @@
                                         </div>
                                     </div>
                                     <!--标签-->
-                                    <div class="row">
+                                    <div class="row m-padded-lr-tiny">
                                         <!--标签-->
-                                        <div class="column m-padded-tb" >
+                                        <div class="m-padded-tt">
                                             <a href="#" th:href="@{/tags/{id}(id=${tag.id})}" target="_blank" th:each="tag : ${blog.tags}" class="ui basic teal left pointing label m-padded-tb-mini m-text-thin" >
                                                 <span th:text="${tag.name}">狼道</span>
                                             </a>
@@ -79,11 +79,12 @@
                                     </div>
                                 </div>
                             </div>
-                        <div class="ui five wide column">
-                            <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank">
-                                <img src="../static/images/香克斯.jpg" th:src="@{${blog.firstPicture}}" alt="" class="ui rounded image" style="width: fit-content">
-                            </a>
-                        </div>
+                            <!--图片-->
+                            <div class="ui five wide column">
+                                <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank">
+                                    <img src="../static/images/香克斯.jpg" th:src="@{${blog.firstPicture}}" alt="" class="ui rounded image" style="width: fit-content">
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>

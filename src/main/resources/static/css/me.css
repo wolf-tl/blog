@@ -30,6 +30,10 @@
     padding-top: 3em !important;
     padding-bottom: 1em !important;
 }
+.m-padded-tt{
+
+    padding-bottom: 1em !important;
+}
 .m-padded-tb-large{
     padding-top: 2em !important;
     padding-bottom: 2em !important;

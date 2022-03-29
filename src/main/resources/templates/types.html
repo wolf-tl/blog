@@ -54,7 +54,7 @@
         </div>
         <!--内容-->
         <div class="ui top attached teal m-bg segment">
-            <div class="ui m-padded-lr-tiny vertical segment " th:each="blog : ${pageInfo.list}">
+            <div class="ui m-padded-lr-tiny m-padded-t vertical segment " th:each="blog : ${pageInfo.list}">
                 <div class="ui mobile reversed stackable grid">
                     <div class="eleven wide column ">
                         <h3 class="ui header"><a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="m-black" th:text="${blog.title}">弱肉强食和天空一样古老又真实</a></h3>
@@ -82,8 +82,8 @@
 <!--                                </div>-->
                             </div>
                             <!--标签-->
-                            <div class="row">
-                                <div class="column m-padded-tb" >
+                            <div class="row m-padded-lr-tiny">
+                                <div class="m-padded-tt" >
                                     <a href="#" th:href="@{/tags/{id}(id=${tag.id})}" target="_blank" th:each="tag : ${blog.tags}" class="ui basic teal left pointing label m-padded-tb-mini m-text-thin" >
                                         <span th:text="${tag.name}">狼道</span>
                                     </a>
