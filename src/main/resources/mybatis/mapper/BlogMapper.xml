@@ -151,7 +151,8 @@
         t.name typename,t.id typeid,
         u.nickname, u.avatar
         from t_blog b, t_type t, t_user u
-        where b.typeId = t.id and  u.id = b.userId and b.published and (b.title like #{pattern} or b.description like  #{pattern})
+        where b.typeId = t.id and  u.id = b.userId and b.published and
+        (b.title like #{pattern} or b.description like  #{pattern} or b.content like #{pattern})
         order by b.createTime desc
     </select>
 
