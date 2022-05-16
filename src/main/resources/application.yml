@@ -30,4 +30,9 @@ comment.avatar: /images/tl.jpg
 message:
   avatar: /images/tl.jpg
 
+qq:
+  oauth:
+    appid: 102008582
+    appkey: b5TftypVwFMTRL3X
+    url: https://www.wolf-tl.top/qqlogin/callback
 

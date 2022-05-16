@@ -23,6 +23,7 @@ public class MessageServiceImpl implements MessageService {
     //存放迭代找出的所有子代的集合
     private List<Message> tempReplys = new ArrayList<>();
 
+    // 查询所有留言
     @Override
     public List<Message> listMessage() {
         //查询出父节点
