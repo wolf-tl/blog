@@ -19,6 +19,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(new QqLoginInterceptor())
                 .addPathPatterns("/**")
                 .excludePathPatterns("/qqlogin")
+                .excludePathPatterns("/qqlogin/auth")
                 .excludePathPatterns("/qqlogin/callback");
     }
 }

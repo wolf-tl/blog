@@ -19,7 +19,7 @@ logging:
     path: log/blog.log
 
 server:
-  port: 443
+  port: 8080
   ssl:
     key-store: classpath:wolf-tl.top.jks
     key-store-password: 2h09647485
