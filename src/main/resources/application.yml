@@ -7,6 +7,30 @@ spring:
     url: jdbc:mysql://localhost:3306/blog?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+  mail:
+    host: smtp.126.com
+    username:
+    password:
+    properties:
+      mail:
+        smtp:
+          ssl:
+            enable: true
+    default-encoding: UTF-8
+
+redis:
+  host: 主机
+  port:
+  database: 0
+  timeout: 1800000
+  lettuce:
+    pool:
+      max-active: 20
+      max-wait: -1
+      max-idle: 5
+      min-idle: 0
+
+
 mybatis:
     type-aliases-package: com.tl.blog.pojo   #设置别名
     mapper-locations: classpath:mybatis/mapper/*.xml   # 指定myBatis的核心配置文件与Mapper映射文件
@@ -35,4 +59,5 @@ qq:
     appid: 102009522
     appkey: ulSvFMFtJgroX2KN
     url: https://www.wolf-tl.top/qqlogin/callback
+
 

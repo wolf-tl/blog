@@ -1,4 +1,4 @@
-package com.tl.blog.controller.qqLogin;
+package com.tl.blog.controller.userLogin;
 
 import com.alibaba.fastjson.JSONObject;
 import com.tl.blog.interceptor.QqHttpClient;
@@ -17,7 +17,6 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.Date;
-import java.util.Map;
 import java.util.UUID;
 
 /**

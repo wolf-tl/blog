@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tl.blog.mapper.MailUserMapper">
+
+    <insert id="addMail" parameterType="MailUser">
+        insert into blog.t_mail (mail) values (#{mail});
+    </insert>
+
+    <select id="checkout" resultType="MailUser">
+        select * from blog.t_mail where mail = #{mail};
+    </select>
+
+
+</mapper>

@@ -8,11 +8,11 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author tl
  */
-public class QqLoginInterceptor implements HandlerInterceptor {
+public class UserLoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        if (request.getSession().getAttribute("qquser") == null){
-            response.sendRedirect("/qqlogin");
+        if (request.getSession().getAttribute("mailuser") == null){
+            response.sendRedirect("/mail");
             return false;
         }
         return true;

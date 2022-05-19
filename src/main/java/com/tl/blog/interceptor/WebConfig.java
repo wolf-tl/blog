@@ -16,10 +16,10 @@ public class WebConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/admin")
                 .excludePathPatterns("/admin/login");
 
-        registry.addInterceptor(new QqLoginInterceptor())
+        registry.addInterceptor(new UserLoginInterceptor())
                 .addPathPatterns("/**")
-                .excludePathPatterns("/qqlogin")
-                .excludePathPatterns("/qqlogin/auth")
-                .excludePathPatterns("/qqlogin/callback");
+                .excludePathPatterns("/mail")
+                .excludePathPatterns("/mail/login")
+                .excludePathPatterns("/mail/register");
     }
 }
