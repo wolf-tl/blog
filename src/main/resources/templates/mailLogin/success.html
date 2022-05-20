@@ -1,10 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="admin/_fragments :: head(~{::title})">
     <meta charset="UTF-8">
-    <title>Title</title>
+    <!--设置移动端预览设置-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册成功</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <link rel="stylesheet" href="../../static/css/me.css">
 </head>
 <body>
+<div class="m-container-small m-padded-tb-supermassive" style="max-width: 30em !important;">
+    <div class="ui container">
+        <div class="ui middle aligned center aligned grid">
+            <div class="column">
+                <h2 class="ui teal image header">
+                    <div class="content">
+                        注册成功！
+                    </div>
+                </h2>
+                <div>
+                    <a href="https://localhost:8080/mail"  style="width:80px; text-align:center"><i class=" paper plane outline icon"></i><font style="vertical-align: inherit;"><font class="m-pink" style="vertical-align: inherit;">去  登  录</font></font></a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 
 </body>
 </html>

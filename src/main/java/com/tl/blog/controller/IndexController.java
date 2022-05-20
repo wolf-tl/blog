@@ -43,7 +43,7 @@ public class IndexController {
     private CommentService commentService;
 
     @GetMapping("/")
-    public String toIndex(@RequestParam(required = false,defaultValue = "1",value = "pagenum")int pagenum, Model model, HttpSession session){
+    public String toIndex(@RequestParam(required = false,defaultValue = "1",value = "pagenum")int pagenum, Model model){
 
         PageHelper.startPage(pagenum, 8);
         List<Blog> allBlog = blogService.getIndexBlog();
@@ -54,15 +54,12 @@ public class IndexController {
 
         List<Blog> recommendBlog =blogService.getAllRecommendBlog();  //获取推荐博客
 
-        JSONObject jsonObject = (JSONObject) session.getAttribute("qquser");
-        String avatar = jsonObject.getString("figureurl_qq_1");
         //得到分页结果对象
         PageInfo pageInfo = new PageInfo(allBlog);
         model.addAttribute("pageInfo", pageInfo);
         model.addAttribute("tags", allTag);
         model.addAttribute("types", allType);
         model.addAttribute("recommendBlogs", recommendBlog);
-        model.addAttribute("avatar",avatar);
         return "index";
     }
 

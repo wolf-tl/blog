@@ -1,7 +1,7 @@
 package com.tl.blog.controller.admin;
 
-import com.tl.blog.pojo.QqUser;
-import com.tl.blog.service.QqUserService;
+import com.tl.blog.pojo.MailUser;
+import com.tl.blog.service.MailUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,13 +15,14 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/admin")
-public class QquserController {
+public class UsersController {
     @Autowired
-    private QqUserService qqUserService;
-    @GetMapping("/qqusers")
-    public String qqusers(Model model){
-        List<QqUser> list = qqUserService.check();
-        model.addAttribute("qqusers",list);
-        return "admin/qqusers";
+    private MailUserService mailUserService;
+
+    @GetMapping("/users")
+    public String checkoutUsers(Model model){
+        List<MailUser> list = mailUserService.checkoutAll();
+        model.addAttribute("list",list);
+        return "admin/loginUsers";
     }
 }

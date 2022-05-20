@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * @author tl
  */
@@ -20,7 +22,17 @@ public class MailUserServiceImpl implements MailUserService{
     }
 
     @Override
+    public List<MailUser> checkoutAll() {
+        return mailUserMapper.checkoutAll();
+    }
+
+    @Override
     public void addMail(MailUser user) {
         mailUserMapper.addMail(user);
+    }
+
+    @Override
+    public void update(MailUser user) {
+        mailUserMapper.update(user);
     }
 }

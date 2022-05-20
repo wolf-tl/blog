@@ -97,19 +97,28 @@
             <version>1.2.79</version>
         </dependency>
 
-        <!-- redis -->
+
+        <!-- spring boot 缓存 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>
-                spring-boot-starter-data-redis
-            </artifactId>
+            <artifactId>spring-boot-starter-cache</artifactId>
         </dependency>
 
-        <!-- spring2.X集成redis所需common-pool -->
+        <!--Spring boot Redis-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+
+        <!--spring boot 集成redis所需common-pool2-->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-pool2</artifactId>
-            <version>2.6.0</version>
+            <version>${commons-pool2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
         </dependency>
 
         <!-- 邮箱相关依赖 -->

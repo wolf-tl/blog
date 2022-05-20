@@ -5,12 +5,19 @@
 <mapper namespace="com.tl.blog.mapper.MailUserMapper">
 
     <insert id="addMail" parameterType="MailUser">
-        insert into blog.t_mail (mail) values (#{mail});
+        insert into blog.t_mail (mail, num, visitTime) values (#{mail}, #{num}, #{visitTime});
     </insert>
 
     <select id="checkout" resultType="MailUser">
         select * from blog.t_mail where mail = #{mail};
     </select>
 
+    <select id="checkoutAll" resultType="MailUser">
+        select * from blog.t_mail order by visitTime desc
+    </select>
+
+    <update id="update" parameterType="MailUser">
+        update blog.t_mail set num = #{num}, visitTime = #{visitTime} where mail = #{mail};
+    </update>
 
 </mapper>

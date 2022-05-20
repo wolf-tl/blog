@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
-import java.util.jar.Attributes;
+
 
 /**
  * @author tl
@@ -32,57 +34,72 @@ public class MailUserController {
 
     private String code;
 
-    @GetMapping("/")
+    private String mail;
+
+    // 转到登录界面
+    @GetMapping()
     public String loginPage(){
         return "mailLogin/login";
     }
 
     @PostMapping("/login")
-    public String login(@RequestParam String mail, HttpSession session){
+    public String login(@RequestParam String mail, HttpSession session, RedirectAttributes attributes){
         MailUser user = mailUserService.checkout(mail);
         if(user!=null){
             session.setAttribute("mailuser", user);
+            user.setNum(user.getNum()+1);
+            user.setVisitTime(new Date());
+            mailUserService.update(user);
+            return "redirect:/";
         }else{
+            attributes.addFlashAttribute("msg","该用户尚未注册！");
             return "redirect:/mail";
         }
-        return "index";
     }
 
+    @GetMapping("/toRegister")
+    public String toRegister(){
+        return "mailLogin/sendMail";
+    }
     // 发送验证码
     @PostMapping("/sendCode")
-    public String sendCode(@RequestParam String mail, RedirectAttributes attributes){
+    public String sendCode(@RequestParam String mail, HttpServletRequest request){
         // 检测该用户是否已经注册过
         MailUser user = mailUserService.checkout(mail);
         if(user!=null){
-            attributes.addFlashAttribute("msg","该用户已被注册！");
-            return "redirect:/mail/sendCode";
+            request.setAttribute("registered","该用户已被注册！");
         }else{
             String ss = redisTemplate.opsForValue().get(mail);
             if (!StringUtils.isEmpty(ss)){
                 // 提示 邮件已发送
-
+                request.setAttribute("sended","验证码已发送，请稍后再试！");
             }else{
                 code = mailService.sendMail(mail);
+                this.mail = mail;
 
                 // 添加缓存并设置五分钟有效
                 redisTemplate.opsForValue().set(mail,code,5, TimeUnit.MINUTES);
+                return "mailLogin/register";
             }
         }
-        return null;
+        return "mailLogin/sendMail";
     }
 
     @PostMapping("/register")
-    public String register(@RequestParam String mail, @RequestParam String randomNum, RedirectAttributes attributes){
+    public String register(@RequestParam String randomNum, HttpServletRequest request){
         // 注册新用户
         if(!code.equals(randomNum)){
-            attributes.addFlashAttribute("msg","验证码错误！");
-            return "redirect:/mail";
+            request.setAttribute("error","验证码错误！");
+
+        }else{
+            MailUser mailuser = new MailUser();
+            mailuser.setMail(mail);
+            mailuser.setNum(0L);
+            mailuser.setVisitTime(new Date());
+            mailUserService.addMail(mailuser);
+            // 返回注册成功界面
+            return "mailLogin/success";
         }
-        MailUser mailuser = new MailUser();
-        mailuser.setMail(mail);
-        mailUserService.addMail(mailuser);
-        attributes.addFlashAttribute("msg","注册成功！");
-        // 返回注册成功界面
-        return "mailLogin/success";
+        return "mailLogin/register";
     }
 }

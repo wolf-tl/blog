@@ -8,9 +8,9 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   mail:
-    host: smtp.126.com
-    username:
-    password:
+    host: smtp.qq.com
+    username: 3136695130@qq.com
+    password: yztdqyouywvvdhbh
     properties:
       mail:
         smtp:
@@ -19,8 +19,8 @@ spring:
     default-encoding: UTF-8
 
 redis:
-  host: 主机
-  port:
+  host: localhost
+  port: 6379
   database: 0
   timeout: 1800000
   lettuce:
@@ -43,7 +43,7 @@ logging:
     path: log/blog.log
 
 server:
-  port: 443
+  port: 8080
   ssl:
     key-store: classpath:wolf-tl.top.jks
     key-store-password: 2h09647485
@@ -54,10 +54,6 @@ comment.avatar: /images/tl.jpg
 message:
   avatar: /images/tl.jpg
 
-qq:
-  oauth:
-    appid: 102009522
-    appkey: ulSvFMFtJgroX2KN
-    url: https://www.wolf-tl.top/qqlogin/callback
+
 
 
