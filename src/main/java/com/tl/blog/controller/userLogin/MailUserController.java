@@ -67,12 +67,12 @@ public class MailUserController {
         // 检测该用户是否已经注册过
         MailUser user = mailUserService.checkout(mail);
         if(user!=null){
-            request.setAttribute("registered","该用户已被注册！");
+            request.setAttribute("msg","该用户已被注册！");
         }else{
             String ss = redisTemplate.opsForValue().get(mail);
             if (!StringUtils.isEmpty(ss)){
                 // 提示 邮件已发送
-                request.setAttribute("sended","验证码已发送，请稍后再试！");
+                request.setAttribute("msg","验证码已发送，请稍后再试！");
             }else{
                 code = mailService.sendMail(mail);
                 this.mail = mail;
@@ -89,8 +89,8 @@ public class MailUserController {
     public String register(@RequestParam String randomNum, HttpServletRequest request){
         // 注册新用户
         if(!code.equals(randomNum)){
-            request.setAttribute("error","验证码错误！");
-
+            request.setAttribute("msg","验证码错误！");
+            return "mailLogin/register";
         }else{
             MailUser mailuser = new MailUser();
             mailuser.setMail(mail);
@@ -100,6 +100,5 @@ public class MailUserController {
             // 返回注册成功界面
             return "mailLogin/success";
         }
-        return "mailLogin/register";
     }
 }

@@ -29,13 +29,11 @@
                         </div>
                         <div class="ui fluid large teal submit button">注  册</div>
                     </div>
+                    <div class="ui error message"></div>
+                    <div class="ui mini negative message" th:unless="${#strings.isEmpty(msg)}" th:text="${msg}"></div>
                 </form>
-                <div>
-                    <input type="hidden" name="error" id="error" value="${error}">
-                </div>
             </div>
         </div>
-
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
@@ -53,10 +51,6 @@
         }
     });
 
-    let error = $("#error").val();
-    if(error!=null){
-        layer.msg(error);
-    }
 </script>
 </body>
 </html>

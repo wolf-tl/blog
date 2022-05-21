@@ -28,14 +28,9 @@
                         </div>
                         <div class="ui fluid large teal submit button">发送验证码</div>
                     </div>
+                    <div class="ui error message"></div>
+                    <div class="ui mini negative message" th:unless="${#strings.isEmpty(msg)}" th:text="${msg}"></div>
                 </form>
-                <div>
-                    <input type="hidden" name="registered" id="registered" value="${registered}">
-                </div>
-                <div>
-                    <input type="hidden" name="sended" id="sended" value="${sended}">
-                </div>
-
             </div>
         </div>
 
@@ -56,14 +51,6 @@
         }
     });
 
-    let registered = $("#registered").val();
-    if(registered!=null){
-        layer.msg(registered);
-    }
-    let sended = $("#sended").val();
-    if(sended!=null){
-        layer.msg(sended);
-    }
 </script>
 </body>
 </html>

@@ -29,9 +29,6 @@ public class FriendController {
     public String friend(Model model, @RequestParam(defaultValue = "1",value = "pageNum") Integer pageNum){
         PageHelper.startPage(pageNum,1000);
         List<FriendLink> listFriendLink = friendLinkService.listFriendLink();
-        for(FriendLink friendLink:listFriendLink){
-            System.out.println(friendLink);
-        }
         PageInfo<FriendLink> pageInfo = new PageInfo<FriendLink>(listFriendLink);
         model.addAttribute("pageInfo",pageInfo);
         return "admin/friendlinks";

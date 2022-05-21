@@ -20,7 +20,6 @@
         <table th:fragment="blogList" class="ui table celled">
             <thead>
             <tr>
-                <th></th>
                 <th>用户名</th>
                 <th>登录次数</th>
                 <th>最近登录时间</th>
@@ -28,31 +27,12 @@
             </thead>
             <tbody class="m-text-crude">
             <tr th:each="item : ${list}">
-                <td th:text="${item.count}">1</td>
                 <td th:text="${item.mail}">用户名</td>
                 <td th:text="${item.num}">登录次数</td>
                 <td th:text="${#dates.format(item.visitTime,'yyyy-MM-dd')}">2020-3-02</td>
-                <td>
-                    <a href="#" th:href="@{/admin/blogs/{id}/input(id=${blog.id})}" class="ui mini teal basic button">编辑</a>
-                    <a href="#" th:href="@{/admin/blogs/{id}/delete(id=${blog.id})}" onclick="return confirm('确定要删除该文章吗？三思啊! 删了可就没了！')" class="ui mini red basic button">删除</a>
-                </td>
             </tr>
             </tbody>
-            <tfoot>
-            <tr>
-                <th colspan="7">
-                    <div class="ui mini pagination menu">
-                        <div class="item"> <a th:href="@{/admin/blogs(pagenum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}">上一页</a></div>
-                        <div class="item"> <a th:href="@{/admin/blogs(pagenum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}">下一页</a></div>
-                    </div>
-                    <a href="#" th:href="@{/admin/blogs/input}" class="ui mini right floated m-margin-top-small teal basic  button">新增</a>
-                </th>
-            </tr>
-            </tfoot>
         </table>
-        <div class="ui segment m-inline-block m-margin-top-mini2 m-padded-mini">
-            <p class="m-text-thin">当前第<span th:text="${pageInfo.pageNum}"></span>页，总<span th:text="${pageInfo.pages}"></span>页，共<span th:text="${pageInfo.total}"></span>条记录</p>
-        </div>
     </div>
 </div>
 
