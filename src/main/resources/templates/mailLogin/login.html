@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head th:replace="admin/_fragments :: head(~{::title})">
+<head>
     <meta charset="UTF-8">
     <!--设置移动端预览设置-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,7 +32,7 @@
                     <div class="ui mini negative message" th:unless="${#strings.isEmpty(msg)}" th:text="${msg}"></div>
                 </form>
                 <div>
-                    <a href="https://localhost:8080/mail/toRegister" target="_blank" style="width:80px; text-align:center"><i class=" paper plane outline icon"></i><font style="vertical-align: inherit;"><font class="m-pink" style="vertical-align: inherit;">注册</font></font></a>
+                    <a href="https://www.wolf-tl.top/mail/toRegister" target="_blank" style="width:80px; text-align:center"><i class=" paper plane outline icon"></i><font style="vertical-align: inherit;"><font class="m-pink" style="vertical-align: inherit;">注册</font></font></a>
                 </div>
             </div>
         </div>

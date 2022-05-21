@@ -14,21 +14,30 @@ spring:
     properties:
       mail:
         smtp:
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
+            port: 465
+          auth: true
+          starttls:
+            enable: true
+            required: true
           ssl:
+            trust: smtp.qq.com
             enable: true
     default-encoding: UTF-8
 
-redis:
-  host: localhost
-  port: 6379
-  database: 0
-  timeout: 1800000
-  lettuce:
-    pool:
-      max-active: 20
-      max-wait: -1
-      max-idle: 5
-      min-idle: 0
+
+  redis:
+    host: 101.43.246.92
+    port: 6379
+    database: 0
+    timeout: 1800000
+    lettuce:
+      pool:
+        max-active: 20
+        max-wait: -1
+        max-idle: 5
+        min-idle: 0
 
 
 mybatis:
@@ -43,12 +52,12 @@ logging:
     path: log/blog.log
 
 server:
-  port: 8080
+  port: 443
   ssl:
     key-store: classpath:wolf-tl.top.jks
     key-store-password: 2h09647485
     key-store-type: JKS
-    session: 3000
+    session: 10000
 
 comment.avatar: /images/tl.jpg
 message:

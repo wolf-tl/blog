@@ -61,6 +61,7 @@ public class MailUserController {
     public String toRegister(){
         return "mailLogin/sendMail";
     }
+
     // 发送验证码
     @PostMapping("/sendCode")
     public String sendCode(@RequestParam String mail, HttpServletRequest request){
