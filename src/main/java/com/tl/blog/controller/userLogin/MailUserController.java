@@ -71,7 +71,8 @@ public class MailUserController {
             request.setAttribute("msg","该用户已被注册！");
         }else{
             String ss = redisTemplate.opsForValue().get(mail);
-            if (!StringUtils.isEmpty(ss)){
+            // 缓存中是否为空
+            if (!StringUtils.hasText(ss)){
                 // 提示 邮件已发送
                 request.setAttribute("msg","验证码已发送，请稍后再试！");
             }else{
@@ -88,7 +89,12 @@ public class MailUserController {
 
     @PostMapping("/register")
     public String register(@RequestParam String randomNum, HttpServletRequest request){
-        // 注册新用户
+        // 注册新用户  判断验证码是否过期
+        String ss = redisTemplate.opsForValue().get(mail);
+        if(StringUtils.hasText(ss)){
+            request.setAttribute("msg","验证码已过期！");
+            return "mailLogin/sendMail";
+        }
         if(!code.equals(randomNum)){
             request.setAttribute("msg","验证码错误！");
             return "mailLogin/register";

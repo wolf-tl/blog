@@ -24,7 +24,7 @@ public class MailServiceImpl implements MailService{
         // 验证码
         String code = RandomCodeUtils.get4BitRandom();
         // 设置邮件内容
-        mailMessage.setText("验证码："+code);
+        mailMessage.setText("验证码(5分钟后过期)："+code);
         // 设置收发人
         mailMessage.setFrom(from);
         mailMessage.setTo(mail);
