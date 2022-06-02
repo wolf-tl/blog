@@ -1,4 +1,4 @@
-package com.tl.blog.controller;
+package com.tl.blog.controller.index;
 
 
 import com.tl.blog.pojo.Message;
@@ -28,13 +28,13 @@ public class MessageController {
     @Value("${message.avatar}")
     private String avatar;
 
-    @GetMapping("/message")
+    @GetMapping("/index/message")
     public String message() {
         return "message";
     }
 
 //    查询留言
-    @GetMapping("/messagecomment")
+    @GetMapping("/index/messagecomment")
     public String messages(Model model) {
         List<Message> messages = messageService.listMessage();
         model.addAttribute("messages", messages);
@@ -42,7 +42,7 @@ public class MessageController {
     }
 
 //    新增留言
-    @PostMapping("/message")
+    @PostMapping("/index/message")
     public String post(Message message, HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
         //设置头像
@@ -62,7 +62,7 @@ public class MessageController {
     }
 
 //    删除留言
-    @GetMapping("/messages/{id}/delete")
+    @GetMapping("/index/messages/{id}/delete")
     public String delete(@PathVariable Long id, RedirectAttributes attributes, Model model){
         messageService.deleteMessage(id);
         return "redirect:/message";

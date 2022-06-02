@@ -1,4 +1,4 @@
-package com.tl.blog.controller;
+package com.tl.blog.controller.index;
 
 
 import com.tl.blog.service.FriendLinkService;
@@ -16,7 +16,7 @@ public class FriendsShowController {
     @Autowired
     private FriendLinkService friendLinkService;
 
-    @GetMapping("/friends")
+    @GetMapping("/index/friends")
     public String friends(Model model) {
         model.addAttribute("friendlinks",friendLinkService.listFriendLink());
         return "friends";

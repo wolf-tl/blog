@@ -1,4 +1,4 @@
-package com.tl.blog.controller;
+package com.tl.blog.controller.index;
 
 
 import com.github.pagehelper.PageHelper;
@@ -27,7 +27,7 @@ public class TypeShowController {
     @Autowired
     private BlogService blogService;
 
-    @GetMapping("/types/{id}")
+    @GetMapping("/index/types/{id}")
     public String types(@PathVariable Long id, @RequestParam(required = false,defaultValue = "1",value = "pagenum")int pagenum,
                         Model model){
 

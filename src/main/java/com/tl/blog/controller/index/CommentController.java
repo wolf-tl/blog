@@ -1,4 +1,4 @@
-package com.tl.blog.controller;
+package com.tl.blog.controller.index;
 
 
 import com.tl.blog.pojo.Blog;
@@ -36,7 +36,7 @@ public class CommentController {
     private String avatar;
 
 //    展示评论
-    @GetMapping("/comments/{blogId}")
+    @GetMapping("/index/comments/{blogId}")
     public String comments(@PathVariable Long blogId, Model model) {
         List<Comment> comments = commentService.listCommentByBlogId(blogId);
         model.addAttribute("comments", comments);
@@ -44,7 +44,7 @@ public class CommentController {
     }
 
 //    新增评论
-    @PostMapping("/blog/comments")
+    @PostMapping("/index/blog/comments")
     public String post(Comment comment, HttpSession session, Model model) {
         Long blogId = comment.getBlogId();
         User user = (User) session.getAttribute("user");
@@ -66,7 +66,7 @@ public class CommentController {
     }
 
 //    删除评论
-    @GetMapping("/comment/{blogId}/{id}/delete")
+    @GetMapping("/index/comment/{blogId}/{id}/delete")
     public String delete(@PathVariable Long blogId, @PathVariable Long id, Comment comment, RedirectAttributes attributes, Model model) throws NotFoundException {
         commentService.deleteComment(comment,id);
         Blog blog = blogService.getDetailedBlog(blogId);

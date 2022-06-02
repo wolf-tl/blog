@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:fragment="head(title)">
+    <meta charset="UTF-8">
+    <!--设置移动端预览设置-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:replace="${title}">模板</title>
+    <link rel="stylesheet" href="../../static/lib/semantic/semantic.min.css" th:href="@{/lib/semantic/semantic.min.css}">
+    <link rel="stylesheet" href="../../static/css/typo.css" th:href="@{/css/typo.css}">
+    <link rel="stylesheet" href="../../static/css/animate.css" th:href="@{/css/animate.css}">
+    <link rel="stylesheet" href="../../static/lib/prism/prism.css" th:href="@{/lib/prism/prism.css}">
+    <link rel="stylesheet" href="../../static/lib/tocbot/tocbot.css" th:href="@{/lib/tocbot/tocbot.css}">
+    <link rel="stylesheet" href="../../static/lib/editormd/css/editormd.min.css" th:href="@{/lib/editormd/css/editormd.min.css}">
+    <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
+    <link rel="shortcut icon" href="../../static/images/leaves_favicon.ico" th:href="@{/images/leaves_favicon.ico}">
+</head>
+<body>
+
+<div th:fragment="script">
+    <script src="../../static/lib/jquery/jquery-3.2.1.min.js" th:src="@{/lib/jquery/jquery-3.2.1.min.js}"></script>
+    <script src="../../static/lib/semantic/semantic.min.js" th:src="@{/lib/semantic/semantic.min.js}"></script>
+    <script src="../../static/lib/prism/prism.js" th:src="@{/lib/prism/prism.js}"></script>
+    <script src="../../static/lib/tocbot/tocbot.min.js" th:src="@{/lib/tocbot/tocbot.min.js}"></script>
+    <script src="../../static/lib/qrcode/qrcode.min.js" th:src="@{/lib/qrcode/qrcode.min.js}"></script>
+    <script src="../../static/lib/scroll/jquery.scrollTo.min.js" th:src="@{/lib/scroll/jquery.scrollTo.min.js}"></script>
+    <script src="../../static/lib/editormd/editormd.min.js" th:src="@{/lib/editormd/editormd.min.js}"></script>
+</div>
+
+</body>
+</html>

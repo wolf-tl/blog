@@ -44,7 +44,7 @@
                     <div class="ui m-padded-lr-tiny m-padded-t vertical segment" th:each="blog : ${pageInfo.list}">
                         <div class="ui mobile reversed stackable grid">
                             <div class="ui eleven wide column ">
-                                <h3  class="ui header"><a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="m-black" th:text="${blog.title}">弱肉强食和天空一样古老又真实</a></h3>
+                                <h3  class="ui header"><a href="#" th:href="@{/index/blog/{id}(id=${blog.id})}" target="_blank" class="m-black" th:text="${blog.title}">弱肉强食和天空一样古老又真实</a></h3>
                                 <p class="m-text m-padded-tb-small" th:text="|${blog.description}|">付出不亚于任何人的努力，副标题是“一步一步、扎扎实实、坚持不懈的做好具体工作。”另外还有一点很重要，
                                     不亚于任何人的努力，必须每天不断持续，千万不要忘记任何伟大的事业都是一步一步、踏踏实实努力积累的结果。</p>
                                 <div class="ui stackable grid">
@@ -65,14 +65,14 @@
                                         </div>
                                         <!--分类-->
                                         <div class="right aligned five wide column">
-                                            <a href="#" th:href="@{/types/{id}(id=${blog.type.id})}" target="_blank" class="ui teal basic label m-padded-tiny m-text-thin" th:text="${blog.type.name}">提高认知</a>
+                                            <a href="#" th:href="@{/index/types/{id}(id=${blog.type.id})}" target="_blank" class="ui teal basic label m-padded-tiny m-text-thin" th:text="${blog.type.name}">提高认知</a>
                                         </div>
                                     </div>
                                     <!--标签-->
                                     <div class="row m-padded-lr-tiny">
                                         <!--标签-->
                                         <div class="m-padded-tt">
-                                            <a href="#" th:href="@{/tags/{id}(id=${tag.id})}" target="_blank" th:each="tag : ${blog.tags}" class="ui basic teal left pointing label m-padded-tb-mini m-text-thin" >
+                                            <a href="#" th:href="@{/index/tags/{id}(id=${tag.id})}" target="_blank" th:each="tag : ${blog.tags}" class="ui basic teal left pointing label m-padded-tb-mini m-text-thin" >
                                                 <span th:text="${tag.name}">狼道</span>
                                             </a>
                                         </div>
@@ -81,7 +81,7 @@
                             </div>
                             <!--图片-->
                             <div class="ui five wide column">
-                                <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank">
+                                <a href="#" th:href="@{/index/blog/{id}(id=${blog.id})}" target="_blank">
                                     <img src="../static/images/香克斯.jpg" th:src="@{${blog.firstPicture}}" alt="" class="ui rounded image" style="width: fit-content">
                                 </a>
                             </div>
@@ -92,10 +92,10 @@
                 <div class="ui bottom attached m-bg segment">
                     <div class="ui middle aligned two column grid">
                         <div class="column">
-                            <a class="ui mini teal basic button" th:href="@{/(pagenum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}">上一页</a>
+                            <a class="ui mini teal basic button" th:href="@{/index/(pagenum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}">上一页</a>
                         </div>
                         <div class="right aligned column">
-                            <a class="ui mini teal basic button" th:href="@{/(pagenum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}">下一页</a>
+                            <a class="ui mini teal basic button" th:href="@{/index/(pagenum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}">下一页</a>
                         </div>
                     </div>
                 </div>
@@ -114,13 +114,13 @@
                                 <i class="idea icon"></i>分类
                             </div>
                             <div class="right aligned column">
-                                <a href="#" th:href="@{types/-1}" target="_blank">more <i class="angle double right icon"></i></a>
+                                <a href="#" th:href="@{/index/types/-1}" target="_blank">more <i class="angle double right icon"></i></a>
                             </div>
                         </div>
                     </div>
                     <div class="ui teal m-bg segment">
                         <div class="ui fluid vertical m-bg menu">
-                            <a href="#" th:href="@{/types/{id}(id=${type.id})}" target="_blank" class="item" th:each="type : ${types}">
+                            <a href="#" th:href="@{/index/types/{id}(id=${type.id})}" target="_blank" class="item" th:each="type : ${types}">
                                 <span th:text="${type.name}">学习日志</span>
                                 <div class="ui teal basic left pointing label"  th:text="${#arrays.length(type.blogs)}">13</div>
                             </a>
@@ -136,12 +136,12 @@
                                 <i class="tags icon"></i>标签
                             </div>
                             <div class="right aligned column">
-                                <a href="#" th:href="@{tags/-1}" target="_blank">more <i class="angle double right icon"></i> </a>
+                                <a href="#" th:href="@{/index/tags/-1}" target="_blank">more <i class="angle double right icon"></i> </a>
                             </div>
                         </div>
                     </div>
                     <div class="ui teal m-bg segment">
-                        <a href="#" th:href="@{/tags/{id}(id=${tag.id})}" target="_blank" th:each="tag : ${tags}" class="ui teal basic left pointing label m-margin-tb-tiny">
+                        <a href="#" th:href="@{/index/tags/{id}(id=${tag.id})}" target="_blank" th:each="tag : ${tags}" class="ui teal basic left pointing label m-margin-tb-tiny">
                             <span th:text="${tag.name}">狼道</span> <div class="detail" th:text="${#arrays.length(tag.blogs)}">23</div>
                         </a>
                     </div>
@@ -153,7 +153,7 @@
                         <i class="bookmark icon"></i>最新推荐
                     </div>
                     <div class="ui m-bg segment" th:each="recommendBlog : ${recommendBlogs}">
-                        <a href="#" th:href="@{/blog/{id}(id=${recommendBlog.id})}" th:text="${recommendBlog.title}" target="_blank" class="m-color m-text-thin">用户故事（User Story）</a>
+                        <a href="#" th:href="@{/index/blog/{id}(id=${recommendBlog.id})}" th:text="${recommendBlog.title}" target="_blank" class="m-color m-text-thin">用户故事（User Story）</a>
                     </div>
                 </div>
                 <!--二维码-->
@@ -174,9 +174,9 @@
 <footer th:replace="_fragments :: footer" class="ui inverted vertical segment m-padded-tb-massive">
 </footer>
 
-<th:block th:replace="_fragments :: script">
+<div th:replace="_fragments :: script">
 
-</th:block>
+</div>
 <script src="../static/lib/aplayer/APlayer.min.js" th:src="@{/lib/aplayer/APlayer.min.js}"></script>
 
 <!--网站运行时间-->

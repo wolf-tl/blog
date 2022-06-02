@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:replace="${title}">模板</title>
     <!--semanic ui前端模板-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <link rel="stylesheet" href="../static/lib/semantic/semantic.min.css" th:href="@{/lib/semantic/semantic.min.css}">
     <!--文章排版-->
     <link rel="stylesheet" href="../static/css/typo.css" th:href="@{/css/typo.css}">
     <!--动态效果-->
@@ -27,13 +27,13 @@
     <div class="ui container">
         <div class="ui  secondary stackable menu">
             <h2 class="ui teal header item " style="font-family:'STXingkai'">诗忆园</h2>
-            <a href="#" th:href="@{/}" class="m-item m-mobile-hide item"  th:classappend="${n==1} ? 'active'"><i class="middle home icon"></i>首页</a>
-            <a href="#" th:href="@{/types/-1}" class="m-item m-mobile-hide item" target="_blank" th:classappend="${n==2} ? 'active'"><i class="middle idea icon"></i>分类</a>
-            <a href="#" th:href="@{/tags/-1}" class="m-item m-mobile-hide item" target="_blank" th:classappend="${n==3} ? 'active'"><i class="middle tags icon"></i>标签</a>
-            <a href="#" th:href="@{/archives}" class="m-item m-mobile-hide item" target="_blank" th:classappend="${n==4} ? 'active'"><i class="middle clone icon"></i>归档</a>
-            <a href="#" th:href="@{/message}" class="m-item item m-mobile-hide" target="_blank" th:classappend="${n==5} ? 'active'"><i class="book icon"></i>留下你的诗篇</a>
-            <a href="#" th:href="@{/friends}" class="m-item item m-mobile-hide" target="_blank" th:classappend="${n==6} ? 'active'"><i class="pencil alternate icon"></i>忆诗忆友</a>
-            <a href="#" th:href="@{/about}" class="m-item m-mobile-hide item" target="_blank" th:classappend="${n==7} ? 'active'"><i class="middle info icon"></i>关于我</a>
+            <a href="#" th:href="@{/index}" class="m-item m-mobile-hide item"  th:classappend="${n==1} ? 'active'"><i class="middle home icon"></i>首页</a>
+            <a href="#" th:href="@{/index/types/-1}" class="m-item m-mobile-hide item" target="_blank" th:classappend="${n==2} ? 'active'"><i class="middle idea icon"></i>分类</a>
+            <a href="#" th:href="@{/index/tags/-1}" class="m-item m-mobile-hide item" target="_blank" th:classappend="${n==3} ? 'active'"><i class="middle tags icon"></i>标签</a>
+            <a href="#" th:href="@{/index/archives}" class="m-item m-mobile-hide item" target="_blank" th:classappend="${n==4} ? 'active'"><i class="middle clone icon"></i>归档</a>
+            <a href="#" th:href="@{/index/message}" class="m-item item m-mobile-hide" target="_blank" th:classappend="${n==5} ? 'active'"><i class="book icon"></i>留下你的诗篇</a>
+            <a href="#" th:href="@{/index/friends}" class="m-item item m-mobile-hide" target="_blank" th:classappend="${n==6} ? 'active'"><i class="pencil alternate icon"></i>忆诗忆友</a>
+            <a href="#" th:href="@{/index/about}" class="m-item m-mobile-hide item" target="_blank" th:classappend="${n==7} ? 'active'"><i class="middle info icon"></i>关于我</a>
             <div class="m-item m-mobile-hide right item">
                 <form name="search" action="#"  th:action="@{/search}" target="_blank">
                     <div class="ui icon  transparent input">
@@ -106,14 +106,14 @@
 </footer>
 
 
-<th:block th:fragment="script">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<div th:fragment="script">
+    <script src="../static/lib/jquery/jquery-3.2.1.min.js" th:src="@{/lib/jquery/jquery-3.2.1.min.js}"></script>
+    <script src="../static/lib/semantic/semantic.min.js" th:src="@{/lib/semantic/semantic.min.js}"></script>
     <script src="../static/lib/prism/prism.js" th:src="@{/lib/prism/prism.js}"></script>
     <script src="../static/lib/tocbot/tocbot.min.js" th:src="@{/lib/tocbot/tocbot.min.js}"></script>
     <script src="../static/lib/qrcode/qrcode.min.js" th:src="@{/lib/qrcode/qrcode.min.js}"></script>
     <script src="../static/lib/scroll/jquery.scrollTo.min.js" th:src="@{/lib/scroll/jquery.scrollTo.min.js}"></script>
-</th:block>
+</div>
 
 </body>
 </html>

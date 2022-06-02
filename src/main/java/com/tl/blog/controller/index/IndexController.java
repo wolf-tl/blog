@@ -1,4 +1,4 @@
-package com.tl.blog.controller;
+package com.tl.blog.controller.index;
 
 
 import com.alibaba.fastjson.JSONObject;
@@ -42,7 +42,7 @@ public class IndexController {
     @Autowired
     private CommentService commentService;
 
-    @GetMapping("/")
+    @GetMapping("/index")
     public String toIndex(@RequestParam(required = false,defaultValue = "1",value = "pagenum")int pagenum, Model model){
 
         PageHelper.startPage(pagenum, 8);

@@ -1,4 +1,4 @@
-package com.tl.blog.controller;
+package com.tl.blog.controller.index;
 
 
 import com.github.pagehelper.PageHelper;
@@ -27,7 +27,7 @@ public class TagShowController {
     @Autowired
     private BlogService blogService;
 
-    @GetMapping("/tags/{id}")
+    @GetMapping("/index/tags/{id}")
     public String types(@PathVariable Long id, @RequestParam(required = false,defaultValue = "1",value = "pagenum")int pagenum,
                         Model model){
         List<Tag> tags = tagService.getBlogTag();

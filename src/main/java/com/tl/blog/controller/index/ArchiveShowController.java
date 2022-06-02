@@ -1,4 +1,4 @@
-package com.tl.blog.controller;
+package com.tl.blog.controller.index;
 
 
 import com.tl.blog.service.BlogService;
@@ -15,7 +15,7 @@ public class ArchiveShowController {
     @Autowired
     private BlogService blogService;
 
-    @GetMapping("/archives")
+    @GetMapping("/index/archives")
     public String archives(Model model) {
         model.addAttribute("archiveMap", blogService.archiveBlog());
         model.addAttribute("blogCount", blogService.countBlog());

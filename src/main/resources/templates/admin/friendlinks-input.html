@@ -61,13 +61,14 @@
   <br>
   <br>
   <!--底部栏-->
-<footer th:replace="_fragments :: footer" class="ui inverted vertical segment m-padded-tb-massive m-opacity">
+<footer th:replace="admin/_fragments :: footer" class="ui inverted vertical segment m-padded-tb-massive m-opacity">
 
 </footer>
 
 
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+<div th:replace="admin/_fragments :: script">
+
+</div>
 
 
   <script>

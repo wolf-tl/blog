@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit;
  * @author tl
  */
 @Controller
-@RequestMapping("/mail")
+@RequestMapping("/")
 public class MailUserController {
     @Autowired
     private MailUserService mailUserService;
@@ -39,7 +39,7 @@ public class MailUserController {
     // 转到登录界面
     @GetMapping()
     public String loginPage(){
-        return "mailLogin/login";
+        return "maillogin/login";
     }
 
     @PostMapping("/login")
@@ -59,7 +59,7 @@ public class MailUserController {
 
     @GetMapping("/toRegister")
     public String toRegister(){
-        return "mailLogin/sendMail";
+        return "maillogin/sendMail";
     }
 
     // 发送验证码
@@ -81,10 +81,10 @@ public class MailUserController {
 
                 // 添加缓存并设置五分钟有效
                 redisTemplate.opsForValue().set(mail,code,5, TimeUnit.MINUTES);
-                return "mailLogin/register";
+                return "maillogin/register";
             }
         }
-        return "mailLogin/sendMail";
+        return "maillogin/sendMail";
     }
 
     @PostMapping("/register")
@@ -93,11 +93,11 @@ public class MailUserController {
         String ss = redisTemplate.opsForValue().get(mail);
         if(StringUtils.hasText(ss)){
             request.setAttribute("msg","验证码已过期！");
-            return "mailLogin/sendMail";
+            return "maillogin/sendMail";
         }
         if(!code.equals(randomNum)){
             request.setAttribute("msg","验证码错误！");
-            return "mailLogin/register";
+            return "maillogin/register";
         }else{
             MailUser mailuser = new MailUser();
             mailuser.setMail(mail);
@@ -105,7 +105,7 @@ public class MailUserController {
             mailuser.setVisitTime(new Date());
             mailUserService.addMail(mailuser);
             // 返回注册成功界面
-            return "mailLogin/success";
+            return "maillogin/success";
         }
     }
 }

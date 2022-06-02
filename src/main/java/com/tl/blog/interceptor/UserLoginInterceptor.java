@@ -12,7 +12,7 @@ public class UserLoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         if (request.getSession().getAttribute("mailuser") == null){
-            response.sendRedirect("/mail");
+            response.sendRedirect("/");
             return false;
         }
         return true;

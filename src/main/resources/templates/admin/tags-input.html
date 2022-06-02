@@ -124,9 +124,9 @@
         <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright c 2022 - 2023 wolf-tl Designed by wolf-tl</p>
     </div>
 </footer>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
-<script src="../../static/lib/editormd/editormd.min.js" th:src="@{/lib/editormd/editormd.min.js}"></script>
+<div th:replace="admin/_fragments :: script">
+
+</div>
 <script>
     //初始化markdown编辑器 一定注意path路径
     var contentEditor;

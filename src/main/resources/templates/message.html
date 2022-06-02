@@ -45,7 +45,7 @@
               </div>
               </div>
 
-              <!--                        输入邮箱-->
+              <!--邮箱-->
               <div class="five wide column">
               <div class="field m-mobile-wide m-margin-bottom-small">
                   <div class="ui left icon input">
@@ -83,7 +83,7 @@
                               <div class="text" th:text="${message.content}">太赞了！ </div>
                               <div class="actions">
                                   <a class="reply" data-messageid="1" data-messagenickname="Matt" th:attr="data-messageid=${message.id},data-messagenickname=${message.nickname}" onclick="reply(this)">回复</a>
-                                  <a class="delete" href="#" th:href="@{/messages/{id}/delete(id=${message.id})}" onclick="return confirm('确定要删除该评论吗？三思啊! 删了可就没了！')" th:if="${session.user}">删除</a>
+                                  <a class="delete" href="#" th:href="@{/index/messages/{id}/delete(id=${message.id})}" onclick="return confirm('确定要删除该评论吗？三思啊! 删了可就没了！')" th:if="${session.user}">删除</a>
                               </div>
                           </div>
                           <!--子集留言-->
@@ -104,7 +104,7 @@
                                       <div class="text" th:text="${reply.content}">太赞了！ </div>
                                       <div class="actions">
                                           <a class="reply" data-messageid="1" data-messagenickname="Matt" th:attr="data-messageid=${reply.id},data-messagenickname=${reply.nickname}" onclick="reply(this)">回复</a>
-                                          <a class="delete" href="#" th:href="@{/messages/{id}/delete(id=${reply.id})}" onclick="return confirm('确定要删除该评论吗？三思啊! 删了可就没了！')" th:if="${session.user}">删除</a>
+                                          <a class="delete" href="#" th:href="@{/index/messages/{id}/delete(id=${reply.id})}" onclick="return confirm('确定要删除该评论吗？三思啊! 删了可就没了！')" th:if="${session.user}">删除</a>
                                       </div>
                                   </div>
                               </div>
@@ -137,9 +137,9 @@
 
 </footer>
 
-<th:block th:replace="_fragments :: script">
+<div th:replace="_fragments :: script">
 
-</th:block>
+</div>
 
 <script>
 
@@ -227,7 +227,7 @@
 
     // 初始化加载
     $(function () {
-        $("#message-container").load(/*[[@{/messagecomment}]]*/"messagecomment");
+        $("#message-container").load("/index/messagecomment");
     });
 
     // 校验信息
@@ -243,7 +243,7 @@
 
     //发送请求给后端
     function postData() {
-        $("#message-container").load(/*[[@{/messages}]]*/"",{
+        $("#message-container").load("/index/message",{
             "parentMessage.id" : $("[name='parentMessage.id']").val(),
             // "blog.id" : $("[name='blog.id']").val(),
             "nickname": $("[name='nickname']").val(),
