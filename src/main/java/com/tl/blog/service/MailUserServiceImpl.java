@@ -10,6 +10,7 @@ import java.util.List;
 
 /**
  * @author tl
+ * 持久层的用户信息管理
  */
 @Service
 @Transactional

@@ -13,7 +13,7 @@
                         登录您的账户
                     </div>
                 </h2>
-                <form class="ui large form" method="post" action="#" th:action="@{/mail/login}">
+                <form class="ui large form" method="post" action="#" th:action="@{/login}">
                     <div class="ui segment">
                         <div class="field">
                             <div class="ui left icon input">
@@ -27,7 +27,7 @@
                     <div class="ui mini negative message" th:unless="${#strings.isEmpty(msg)}" th:text="${msg}"></div>
                 </form>
                 <div>
-                    <a href="https://www.wolf-tl.top/mail/toRegister" target="_blank" style="width:80px; text-align:center"><i class=" paper plane outline icon"></i><font style="vertical-align: inherit;"><font class="m-pink" style="vertical-align: inherit;">注册</font></font></a>
+                    <a href="https://www.wolf-tl.top/toRegister" style="width:80px; text-align:center"><i class=" paper plane outline icon"></i><font style="vertical-align: inherit;"><font class="m-pink" style="vertical-align: inherit;">注册</font></font></a>
                 </div>
             </div>
         </div>

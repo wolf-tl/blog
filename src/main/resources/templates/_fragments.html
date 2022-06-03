@@ -35,7 +35,7 @@
             <a href="#" th:href="@{/index/friends}" class="m-item item m-mobile-hide" target="_blank" th:classappend="${n==6} ? 'active'"><i class="pencil alternate icon"></i>忆诗忆友</a>
             <a href="#" th:href="@{/index/about}" class="m-item m-mobile-hide item" target="_blank" th:classappend="${n==7} ? 'active'"><i class="middle info icon"></i>关于我</a>
             <div class="m-item m-mobile-hide right item">
-                <form name="search" action="#"  th:action="@{/search}" target="_blank">
+                <form name="search" action="#"  th:action="@{/index/search}" target="_blank">
                     <div class="ui icon  transparent input">
                         <input type="text" name="query" placeholder="Search..." th:value="${query}">
                         <i onclick="document.forms['search'].submit()" class="search link icon"></i>

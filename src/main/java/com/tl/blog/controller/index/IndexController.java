@@ -63,7 +63,7 @@ public class IndexController {
         return "index";
     }
 
-    @GetMapping("/search")
+    @GetMapping("/index/search")
     public String search(@RequestParam(required = false,defaultValue = "1",value = "pagenum")int pagenum,
                          @RequestParam String query, Model model){
 
@@ -75,7 +75,7 @@ public class IndexController {
         return "search";
     }
 
-    @GetMapping("/blog/{id}")
+    @GetMapping("/index/blog/{id}")
     public String toLogin(@PathVariable Long id, Model model) throws NotFoundException {
         Blog blog = blogService.getDetailedBlog(id);
         List<Comment> comments = commentService.listCommentByBlogId(id);

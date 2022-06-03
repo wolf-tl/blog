@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * @author tl
+ * 发送邮件
  */
 @Service
 public class MailServiceImpl implements MailService{

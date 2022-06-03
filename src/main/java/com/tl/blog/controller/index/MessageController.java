@@ -55,6 +55,7 @@ public class MessageController {
         if (message.getParentMessage().getId() != null) {
             message.setParentMessageId(message.getParentMessage().getId());
         }
+        message.setNickname(message.getEmail());
         messageService.saveMessage(message);
         List<Message> messages = messageService.listMessage();
         model.addAttribute("messages", messages);
@@ -65,7 +66,7 @@ public class MessageController {
     @GetMapping("/index/messages/{id}/delete")
     public String delete(@PathVariable Long id, RedirectAttributes attributes, Model model){
         messageService.deleteMessage(id);
-        return "redirect:/message";
+        return "redirect:/index/message";
     }
 
 }
