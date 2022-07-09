@@ -2,15 +2,15 @@ spring:
   main:
     allow-circular-references: true
   datasource:
-    username: root
-    password: tl
+    username: xxx
+    password: xxx
     url: jdbc:mysql://localhost:3306/blog?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   mail:
     host: smtp.qq.com
-    username: 3136695130@qq.com
-    password: yztdqyouywvvdhbh
+    username: xxx
+    password: xxx
     properties:
       mail:
         smtp:
@@ -28,7 +28,7 @@ spring:
 
 
   redis:
-    host: 101.43.246.92
+    host: xxx
     port: 6379
     database: 0
     timeout: 1800000
@@ -54,8 +54,8 @@ logging:
 server:
   port: 443
   ssl:
-    key-store: classpath:wolf-tl.top.jks
-    key-store-password: 2h09647485
+    key-store: xxx
+    key-store-password: xxx
     key-store-type: JKS
     session: 10000
 
